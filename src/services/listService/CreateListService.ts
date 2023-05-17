@@ -1,29 +1,37 @@
-import { number, string } from "zod";
 import { IListaRepository } from "../../repositories/listaRepository/listaRepositoryInterface";
-import { Listas } from "@prisma/client";
+import { Listas, Users } from "@prisma/client";
 
 interface ICreateListService {
-    name: string
-    category: string
-    describle: string
-    itens_quantity: number
-
+    name: string;
+    category: string;
+    describle: string;
+    user: Users | null
 }
 
 interface ICreateListServiceResponse {
-    list: Listas
+    list: Listas;
 }
 
 export class CreateListService {
-    constructor(private listaRepository: IListaRepository) { }
+    constructor(
+        private listaRepository: IListaRepository,
+    ) { }
 
-    async execute({ name, category, describle, itens_quantity }: ICreateListService): Promise<ICreateListServiceResponse> {
+    async execute({
+        name,
+        category,
+        describle,
+        user
+    }: ICreateListService): Promise<ICreateListServiceResponse> {
+
         const list = await this.listaRepository.createList({
             category,
             describle,
-            itens_quantity,
-            name
-        })
-        return { list }
+            itens_quantity: 0,
+            name,
+            user: user !== null ? { connect: { user_id: user.user_id } } : undefined
+        });
+
+        return { list };
     }
 }

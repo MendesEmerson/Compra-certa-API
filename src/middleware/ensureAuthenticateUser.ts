@@ -1,11 +1,11 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 interface IPayload {
     sub: string;
 }
 
-export const ensureAuthenticateUser = (request: FastifyRequest, response: FastifyReply, done: () => void) => {
+export const ensureAuthenticateUser = (request: Request, response: Response, next: NextFunction) => {
     const authHeader = request.headers.authorization
 
     if (!authHeader) {
@@ -19,7 +19,7 @@ export const ensureAuthenticateUser = (request: FastifyRequest, response: Fastif
     try {
         const { sub } = verify(token, "bbca61cf2f25de7dfbe347b803122fda") as IPayload;
         request.user_id = sub
-        return done()
+        next()
     } catch (error) {
         return response.status(401).send({
             error: "Invalid token",
