@@ -26,7 +26,7 @@ export const AuthenticateUser = async (request: FastifyRequest, response: Fastif
         if(error instanceof InvalidEmailOrPassword){
             return response.status(401).send({message: error.message})
         }
-        return response.status(500).send("Internal Server Error")
+        throw error
     }
 
 }

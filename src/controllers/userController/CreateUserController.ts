@@ -26,6 +26,6 @@ export const CreateUser = async (request: FastifyRequest, response: FastifyReply
         if (error instanceof UserAlreadyExistError) {
             return response.status(409).send({ message: error.message })
         }
-        return response.status(500).send({ message: "Internal Server Error" })
+        throw error
     }
 }
