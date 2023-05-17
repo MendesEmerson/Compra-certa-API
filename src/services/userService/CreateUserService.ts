@@ -1,4 +1,4 @@
-import { Users } from "@prisma/client";
+import { Listas, Users } from "@prisma/client";
 import { IUserRepository } from "../../repositories/userRepository/userRepositoryInterface";
 import { hash } from "bcryptjs";
 import { UserAlreadyExistError } from "./userErrors/UserAlreadyExistError";
@@ -27,8 +27,9 @@ export class CreateUserService {
         const user = await this.userRepository.createUser({
             email,
             name,
-            password_hash
+            password_hash,
         })
+        
         return { user }
     }
 }

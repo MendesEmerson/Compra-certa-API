@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Users {
-  id            String   @id @default(uuid())
+  user_id       String   @id @default(uuid())
   name          String
   email         String   @unique
   password_hash String
@@ -16,21 +16,21 @@ model Users {
 }
 
 model Listas {
-  id             String  @id @default(uuid())
+  list_id        String  @id @default(uuid())
   name           String
   category       String
   describle      String
-  itens_quantity Int
+  itens_quantity Int?    @default(0)
   itens          Itens[]
-  Users          Users?  @relation(fields: [usersId], references: [id])
+  user           Users?  @relation(fields: [usersId], references: [user_id])
   usersId        String?
 }
 
 model Itens {
-  id           String  @id @default(uuid())
+  itens_id     String  @id @default(uuid())
   name         String
   sub_category String
   quantity     Int
-  Listas       Listas? @relation(fields: [listasId], references: [id])
+  lista        Listas? @relation(fields: [listasId], references: [list_id])
   listasId     String?
 }

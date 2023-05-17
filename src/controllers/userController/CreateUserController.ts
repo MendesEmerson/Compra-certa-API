@@ -1,11 +1,11 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { Request, Response } from "express"
 import { z } from "zod";
 import { UserRepository } from "../../repositories/userRepository/userRepository";
 import { CreateUserService } from "../../services/userService/CreateUserService";
 import { UserAlreadyExistError } from "../../services/userService/userErrors/UserAlreadyExistError";
 
 
-export const CreateUser = async (request: FastifyRequest, response: FastifyReply) => {
+export const CreateUser = async (request: Request, response: Response) => {
     const userRepository = new UserRepository()
     const createUserService = new CreateUserService(userRepository)
 
@@ -26,6 +26,6 @@ export const CreateUser = async (request: FastifyRequest, response: FastifyReply
         if (error instanceof UserAlreadyExistError) {
             return response.status(409).send({ message: error.message })
         }
-        return response.status(500).send({ message: "Internal Server Error" })
+        throw error
     }
 }
