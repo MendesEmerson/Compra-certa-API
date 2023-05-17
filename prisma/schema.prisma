@@ -20,9 +20,9 @@ model Listas {
   name           String
   category       String
   describle      String
-  itens_quantity Int
+  itens_quantity Int?    @default(0)
   itens          Itens[]
-  Users          Users?  @relation(fields: [usersId], references: [user_id])
+  user           Users?  @relation(fields: [usersId], references: [user_id])
   usersId        String?
 }
 
@@ -31,6 +31,6 @@ model Itens {
   name         String
   sub_category String
   quantity     Int
-  Listas       Listas? @relation(fields: [listasId], references: [list_id])
+  lista        Listas? @relation(fields: [listasId], references: [list_id])
   listasId     String?
 }
