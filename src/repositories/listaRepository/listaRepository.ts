@@ -35,5 +35,14 @@ export class ListaRepository implements IListaRepository {
         return lists
     }
 
+    async getListById(list_id: string): Promise<Listas | null> {
+        const list = await prisma.listas.findUnique({
+            where:{
+                list_id
+            }
+        })
+        return list
+    }
+
 
 }
