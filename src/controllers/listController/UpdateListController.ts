@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
 import { UpdateListService } from "../../services/listService/UpdateListService";
-import { UnauthorizedError } from "../../services/listService/listErrors/UnauthorizedError";
+import { UnauthorizedError } from "../../services/Errors/UnauthorizedError";
 
 export const UpdateList = async (request: Request, response: Response) => {
     const listaRepository = new ListaRepository();

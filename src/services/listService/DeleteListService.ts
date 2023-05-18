@@ -1,5 +1,5 @@
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
-import { UnauthorizedError } from "./listErrors/UnauthorizedError";
+import { UnauthorizedError } from "../Errors/UnauthorizedError";
 
 interface IDeleteListService {
     user_id: string,

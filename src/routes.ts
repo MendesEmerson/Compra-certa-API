@@ -8,6 +8,7 @@ import { UpdateList } from "./controllers/listController/UpdateListController";
 import { DeleteList } from "./controllers/listController/DeleteListController";
 import { CreateItem } from "./controllers/itemController/CreateItemController";
 import { DeleteItem } from "./controllers/itemController/DeleteItemController";
+import { GetAllItens } from "./controllers/itemController/GetAllItensController";
 
 
 export const routes = Router();
@@ -20,5 +21,6 @@ routes.post("/list", ensureAuthenticateUser, CreateList)
 routes.put("/list/:list_id", ensureAuthenticateUser, UpdateList)
 routes.delete("/list/:list_id", ensureAuthenticateUser, DeleteList)
 
+routes.get("/itens/:list_id", ensureAuthenticateUser, GetAllItens)
 routes.post("/item/:list_id", ensureAuthenticateUser, CreateItem)
 routes.delete("/item/:item_id", ensureAuthenticateUser, DeleteItem)

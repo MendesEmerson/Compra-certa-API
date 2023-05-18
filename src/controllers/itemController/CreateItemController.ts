@@ -3,8 +3,8 @@ import { ItensRepository } from "../../repositories/itensRepository/ItensReposit
 import { CreateItemService } from "../../services/itensService/CreateItemService";
 import { z } from "zod";
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
-import { ListNotFound } from "../../services/itensService/itensErrors/ListNotFoundError";
-import { UnauthorizedError } from "../../services/listService/listErrors/UnauthorizedError";
+import { ListNotFound } from "../../services/Errors/ListNotFoundError";
+import { UnauthorizedError } from "../../services/Errors/UnauthorizedError";
 
 export const CreateItem = async (request: Request, response: Response) => {
     const itensRepository = new ItensRepository()

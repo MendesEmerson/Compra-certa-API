@@ -1,7 +1,7 @@
 import { ItensRepository } from "../../repositories/itensRepository/ItensRepository"
-import { ListNotFound } from "./itensErrors/ListNotFoundError"
+import { ListNotFound } from "../Errors/ListNotFoundError"
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository"
-import { UnauthorizedError } from "../listService/listErrors/UnauthorizedError"
+import { UnauthorizedError } from "../Errors/UnauthorizedError"
 
 interface ICreateItemService {
     name: string

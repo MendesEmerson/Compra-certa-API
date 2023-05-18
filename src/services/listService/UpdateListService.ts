@@ -1,6 +1,6 @@
 import { IListaRepository } from "../../repositories/listaRepository/listaRepositoryInterface";
-import { UnauthorizedError } from "./listErrors/UnauthorizedError";
-import { ListNotFound } from "../itensService/itensErrors/ListNotFoundError";
+import { UnauthorizedError } from "../Errors/UnauthorizedError";
+import { ListNotFound } from "../Errors/ListNotFoundError";
 
 interface IUpdateListService {
     list_id: string

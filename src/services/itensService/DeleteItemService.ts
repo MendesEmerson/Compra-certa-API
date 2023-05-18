@@ -1,7 +1,7 @@
 import { ItensRepository } from "../../repositories/itensRepository/ItensRepository";
-import { ItemNotFound } from "./itensErrors/ItemNotFoundError";
+import { ItemNotFound } from "../Errors/ItemNotFoundError";
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
-import { UnauthorizedError } from "../listService/listErrors/UnauthorizedError"
+import { UnauthorizedError } from "../Errors/UnauthorizedError"
 
 interface IDeleteItemService {
     user_id: string;

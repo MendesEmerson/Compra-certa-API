@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { ItensRepository } from "../../repositories/itensRepository/ItensRepository";
 import { DeleteItemService } from "../../services/itensService/DeleteItemService";
-import { ItemNotFound } from "../../services/itensService/itensErrors/ItemNotFoundError";
+import { ItemNotFound } from "../../services/Errors/ItemNotFoundError";
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
-import { UnauthorizedError } from "../../services/listService/listErrors/UnauthorizedError";
+import { UnauthorizedError } from "../../services/Errors/UnauthorizedError";
 
 export const DeleteItem = async (request: Request, response: Response) => {
     const itensRepository = new ItensRepository()
