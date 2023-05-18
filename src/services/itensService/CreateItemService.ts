@@ -1,4 +1,3 @@
-import { Listas } from "@prisma/client"
 import { ItensRepository } from "../../repositories/itensRepository/ItensRepository"
 import { ListNotFound } from "./itensErrors/ListNotFound"
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository"
@@ -14,6 +13,10 @@ export class CreateItemService {
     constructor(private itensRepository: ItensRepository, private listRepository: ListaRepository) { }
     async execute({ list_id, name, quantity, sub_category }: ICreateItemService) {
         const list = await this.listRepository.getListById(list_id)
+        if (!list) {
+            throw new ListNotFound()
+        }
+
         const createItem = await this.itensRepository.createItem({
             name,
             quantity,
@@ -21,10 +24,6 @@ export class CreateItemService {
             lista: list !== null ? { connect: { list_id: list.list_id } } : undefined
         })
 
-        if (!list) {
-            throw new ListNotFound()
-        }
-        
         await this.listRepository.updateList({
             list_id: list.list_id,
             itens_quantity: list.itens_quantity !== null ? list.itens_quantity + 1 : 0
