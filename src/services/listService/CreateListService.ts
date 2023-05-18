@@ -17,17 +17,11 @@ export class CreateListService {
         private listaRepository: IListaRepository,
     ) { }
 
-    async execute({
-        name,
-        category,
-        describle,
-        user
-    }: ICreateListService): Promise<ICreateListServiceResponse> {
+    async execute({ name, category, describle, user }: ICreateListService): Promise<ICreateListServiceResponse> {
 
         const list = await this.listaRepository.createList({
             category,
             describle,
-            itens_quantity: 0,
             name,
             user: user !== null ? { connect: { user_id: user.user_id } } : undefined
         });

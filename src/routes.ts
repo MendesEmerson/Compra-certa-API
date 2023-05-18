@@ -6,6 +6,7 @@ import { Router } from "express";
 import { GetAllLists } from "./controllers/listController/GetAllListsController";
 import { UpdateList } from "./controllers/listController/UpdateListController";
 import { DeleteList } from "./controllers/listController/DeleteListController";
+import { CreateItem } from "./controllers/itemController/CreateItemController";
 
 
 export const routes = Router();
@@ -17,3 +18,5 @@ routes.get("/lists", ensureAuthenticateUser, GetAllLists)
 routes.post("/list", ensureAuthenticateUser, CreateList)
 routes.put("/list/:list_id", ensureAuthenticateUser, UpdateList)
 routes.delete("/list/:list_id", ensureAuthenticateUser, DeleteList)
+
+routes.post("/item/:list_id", ensureAuthenticateUser, CreateItem)
