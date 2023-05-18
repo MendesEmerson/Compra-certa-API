@@ -4,6 +4,14 @@ import { prisma } from "../../lib/prisma";
 import { string } from "zod";
 
 export class ItensRepository implements IItensRepository {
+    async getItemById(itens_id: string): Promise<Itens | null> {
+        const item = await prisma.itens.findUnique({
+            where: {
+                itens_id
+            }
+        })
+        return item
+    }
 
     async getAllItens(list_id: string): Promise<Itens[] | undefined> {
         const list = await prisma.listas.findUnique({

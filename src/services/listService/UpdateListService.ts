@@ -1,5 +1,6 @@
 import { IListaRepository } from "../../repositories/listaRepository/listaRepositoryInterface";
 import { UnauthorizedError } from "./listErrors/UnauthorizedError";
+import { ListNotFound } from "../itensService/itensErrors/ListNotFoundError";
 
 interface IUpdateListService {
     list_id: string
@@ -14,15 +15,22 @@ export class UpdateListService {
         private listaRepository: IListaRepository,
     ) { }
     async execute({ category, describle, name, list_id, user_id }: IUpdateListService) {
+        const list = await this.listaRepository.getListById(list_id)
+       
+        if (!list) {
+            throw new ListNotFound();
+        }
+
+        if (list.usersId !== user_id) {
+            throw new UnauthorizedError();
+        }
+
         const updateList = await this.listaRepository.updateList({
             list_id,
             category,
             describle,
             name
         })
-        if(updateList.usersId !== user_id) {
-            throw new UnauthorizedError()
-        }
         return updateList
     }
 }

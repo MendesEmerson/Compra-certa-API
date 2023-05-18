@@ -1,20 +1,27 @@
 import { ItensRepository } from "../../repositories/itensRepository/ItensRepository"
-import { ListNotFound } from "./itensErrors/ListNotFound"
+import { ListNotFound } from "./itensErrors/ListNotFoundError"
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository"
+import { UnauthorizedError } from "../listService/listErrors/UnauthorizedError"
 
 interface ICreateItemService {
     name: string
     quantity: number
     sub_category: string
     list_id: string
+    user_id: string
 }
 
 export class CreateItemService {
     constructor(private itensRepository: ItensRepository, private listRepository: ListaRepository) { }
-    async execute({ list_id, name, quantity, sub_category }: ICreateItemService) {
+    async execute({ list_id, name, quantity, sub_category, user_id }: ICreateItemService) {
         const list = await this.listRepository.getListById(list_id)
+
         if (!list) {
             throw new ListNotFound()
+        }
+
+        if(user_id !== list.usersId) {
+            throw new UnauthorizedError()
         }
 
         const createItem = await this.itensRepository.createItem({

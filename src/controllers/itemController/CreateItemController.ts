@@ -3,7 +3,8 @@ import { ItensRepository } from "../../repositories/itensRepository/ItensReposit
 import { CreateItemService } from "../../services/itensService/CreateItemService";
 import { z } from "zod";
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
-import { ListNotFound } from "../../services/itensService/itensErrors/ListNotFound";
+import { ListNotFound } from "../../services/itensService/itensErrors/ListNotFoundError";
+import { UnauthorizedError } from "../../services/listService/listErrors/UnauthorizedError";
 
 export const CreateItem = async (request: Request, response: Response) => {
     const itensRepository = new ItensRepository()
@@ -17,10 +18,12 @@ export const CreateItem = async (request: Request, response: Response) => {
     })
 
     const { list_id } = request.params
+    const { user_id } = request
     const { sub_category, quantity, name } = createBodySchema.parse(request.body)
 
     try {
         const newItem = await createItemService.execute({
+            user_id,
             list_id,
             name,
             quantity,
@@ -28,10 +31,12 @@ export const CreateItem = async (request: Request, response: Response) => {
         })
         return response.status(201).json(newItem)
     } catch (error) {
-        if(error instanceof ListNotFound) {
-            return response.status(404).json({message: error.message})
+        if (error instanceof ListNotFound) {
+            return response.status(404).json({ message: error.message })
+        } else if (error instanceof UnauthorizedError){
+            return response.status(401).json({ message: error.message })
         }
-        return response.status(500).json({message: "Internal Server Error"})
+        return response.status(500).json({ message: "Internal Server Error" })
     }
 
 }
