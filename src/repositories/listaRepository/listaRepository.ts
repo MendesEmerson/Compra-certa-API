@@ -3,6 +3,13 @@ import { IListaRepository } from "./listaRepositoryInterface";
 import { prisma } from "../../lib/prisma";
 
 export class ListaRepository implements IListaRepository {
+    async deleteList(list_id: string): Promise<void> {
+        const deleteList = await prisma.listas.delete({
+            where:{
+                list_id
+            }
+        })
+    }
      async updateList(data: Prisma.ListasUpdateInput): Promise<Listas> {
         const { list_id } = data;
         const updatedList = await prisma.listas.update({
