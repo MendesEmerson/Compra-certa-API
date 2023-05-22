@@ -3,10 +3,17 @@ import { IListaRepository } from "./listaRepositoryInterface";
 import { prisma } from "../../lib/prisma";
 
 export class ListaRepository implements IListaRepository {
-     async updateList(data: Prisma.ListasUpdateInput): Promise<Listas> {
+    async deleteList(list_id: string): Promise<void> {
+        const deleteList = await prisma.listas.delete({
+            where: {
+                list_id
+            }
+        })
+    }
+    async updateList(data: Prisma.ListasUpdateInput): Promise<Listas> {
         const { list_id } = data;
         const updatedList = await prisma.listas.update({
-            where: { list_id: list_id as string},
+            where: { list_id: list_id as string },
             data
         });
         return updatedList;
@@ -26,6 +33,15 @@ export class ListaRepository implements IListaRepository {
         });
         const lists = user?.listas
         return lists
+    }
+
+    async getListById(list_id: string): Promise<Listas | null> {
+        const list = await prisma.listas.findUnique({
+            where: {
+                list_id
+            }
+        })
+        return list
     }
 
 

@@ -1,7 +1,7 @@
 import { IUserRepository } from "../../repositories/userRepository/userRepositoryInterface";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { InvalidEmailOrPassword } from "./userErrors/InvalidEmailOrPasswordError";
+import { InvalidEmailOrPassword } from "../Errors/InvalidEmailOrPasswordError";
 
 
 interface ICreateUserService {

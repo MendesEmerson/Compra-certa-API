@@ -1,7 +1,7 @@
 import { Listas, Users } from "@prisma/client";
 import { IUserRepository } from "../../repositories/userRepository/userRepositoryInterface";
 import { hash } from "bcryptjs";
-import { UserAlreadyExistError } from "./userErrors/UserAlreadyExistError";
+import { UserAlreadyExistError } from "../Errors/UserAlreadyExistError";
 
 interface ICreateUserService {
     name: string

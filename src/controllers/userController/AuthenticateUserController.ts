@@ -2,7 +2,7 @@ import { z } from "zod"
 import { UserRepository } from "../../repositories/userRepository/userRepository"
 import { AuthenticateUserService } from "../../services/userService/AuthenticateUserService"
 import { Request, Response } from "express"
-import { InvalidEmailOrPassword } from "../../services/userService/userErrors/InvalidEmailOrPasswordError"
+import { InvalidEmailOrPassword } from "../../services/Errors/InvalidEmailOrPasswordError"
 
 export const AuthenticateUser = async (request: Request, response: Response) => {
     const userRepository = new UserRepository()

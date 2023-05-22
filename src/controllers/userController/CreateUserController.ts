@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { z } from "zod";
 import { UserRepository } from "../../repositories/userRepository/userRepository";
 import { CreateUserService } from "../../services/userService/CreateUserService";
-import { UserAlreadyExistError } from "../../services/userService/userErrors/UserAlreadyExistError";
+import { UserAlreadyExistError } from "../../services/Errors/UserAlreadyExistError";
 
 
 export const CreateUser = async (request: Request, response: Response) => {
