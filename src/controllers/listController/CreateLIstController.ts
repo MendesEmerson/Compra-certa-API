@@ -1,29 +1,22 @@
 import { Request, Response } from "express"
 import { ListaRepository } from "../../repositories/listaRepository/listaRepository";
 import { CreateListService } from "../../services/listService/CreateListService";
-import { z } from "zod";
 import { UserRepository } from "../../repositories/userRepository/userRepository";
 
 export const CreateList = async (request: Request, response: Response) => {
     const listaRepository = new ListaRepository()
     const userRepository = new UserRepository()
-    const listaService = new CreateListService(listaRepository)
+    const listaService = new CreateListService(listaRepository, userRepository)
 
-    const createBodySchema = z.object({
-        name: z.string(),
-        category: z.string(),
-        describle: z.string(),
-    })
     const { user_id } = request
-    const { category, describle, name } = createBodySchema.parse(request.body)
-    const user = await userRepository.findById(user_id)
+    const { category, describle, name } = request.body
 
     try {
         const newLIst = await listaService.execute({
             category,
             describle,
             name,
-            user
+            user_id
         })
         return response.status(201).send(newLIst)
     } catch (error) {

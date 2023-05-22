@@ -32,5 +32,10 @@ export class DeleteItemService {
         }
 
         await this.itensRepository.deleteItem(item.itens_id);
+
+        await this.listasRepository.updateList({
+            list_id: lista.list_id,
+            itens_quantity: lista.itens_quantity !== null ? lista.itens_quantity - 1 : 0
+        })
     }
 }

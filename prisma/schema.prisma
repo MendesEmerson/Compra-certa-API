@@ -18,7 +18,7 @@ model Users {
 model Listas {
   list_id        String  @id @default(uuid())
   name           String
-  category       String
+  category       String?
   describle      String
   itens_quantity Int?    @default(0)
   itens          Itens[]
@@ -31,6 +31,7 @@ model Itens {
   name         String
   sub_category String
   quantity     Int
+  check        Boolean @default(false)
   lista        Listas? @relation(fields: [listasId], references: [list_id], onDelete: Cascade)
   listasId     String?
 }
